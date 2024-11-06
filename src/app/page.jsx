@@ -2,8 +2,9 @@ import prisma from "@/lib/prisma";
 import Image from "next/image";
 import Link from "next/link";
 
-export default async function Home() {
+export const revalidate = 10;
 
+async function fetchPosts() {
   const posts = await prisma.post.findMany({
     include: {
       author: {
@@ -14,7 +15,11 @@ export default async function Home() {
       },
     },
   });
-  // console.log(posts);
+
+  return posts;
+}
+export default async function Home() {
+  const posts = await fetchPosts();
 
   return (
     <div className="container mx-auto p-6">
