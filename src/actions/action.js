@@ -43,7 +43,7 @@ export const createPost = async (prev, formData) => {
       },
     });
 
-    return { post: newPost, success: true };
+    return { post: newPost, success: true, errors: false };
 
   } catch (error) {
     return { errors: { message: "Failed to create post" }, success: false };
